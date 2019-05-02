@@ -1,0 +1,142 @@
+[
+	{
+		"car": {
+			"reg": "AA12345",
+			"brand": "Audi",
+			"model": "S4",
+			"year": 2017,
+			"users": [
+				{
+					"name": "Mohammad Hariri",
+					"email": "screenchok@gmail.com",
+					"address": "belvederevej 4c",
+					"zip": 3000
+				}
+			],
+			"invoices": [
+				{
+					"payments": [
+						{
+							"method": "Kort",
+							"price": 3000
+						}
+					],
+					"spareParts": [
+						{
+							"price": 30,
+							"amount": 3,
+							"description": "lamper",
+							"productNumber": 1221
+						}
+					],
+					"workHours": 12
+				}
+			]
+		}
+	},
+	{
+		"car": {
+			"reg": "AA13345",
+			"brand": "Audi",
+			"model": "A5",
+			"year": 2017,
+			"users": [
+				{
+					"name": "Faten",
+					"email": "flazxx@gmail.com",
+					"address": "belvederevej 4c",
+					"zip": 3000
+				}
+			],
+			"invoices": [
+				{
+					"payments": [
+						{
+							"method": "Kort",
+							"price": 3000
+						}
+					],
+					"spareParts": [
+						{
+							"price": 30,
+							"amount": 3,
+							"description": "lamper",
+							"productNumber": 1221
+						}
+					],
+					"workHours": 12
+				}
+			]
+		}
+	},
+	{
+		"car": {
+			"reg": "AA54345",
+			"brand": "Mercedes",
+			"model": "s-klasse",
+			"year": 2017,
+			"users": [
+				{
+					"name": "salah",
+					"email": "hbas@gmail.com",
+					"address": "belvederevej 4c",
+					"zip": 3000
+				}
+			],
+			"invoices": [
+				{
+					"payments": [
+						{
+							"method": "Kort",
+							"price": 3000
+						}
+					],
+					"spareParts": [
+						{
+							"price": 30,
+							"amount": 3,
+							"description": "lamper",
+							"productNumber": 1221
+						}
+					],
+					"workHours": 12
+				}
+			]
+		}
+	},
+	{
+		"car": {
+			"reg": "AS19545",
+			"brand": "Ford",
+			"model": "Mustang",
+			"year": 2017,
+			"users": [
+				{
+					"name": "Abed hariri",
+					"email": "abed@gmail.com",
+					"address": "belvederevej 4c",
+					"zip": 3000
+				}
+			],
+			"invoices": [
+				{
+					"payments": [
+						{
+							"method": "Kort",
+							"price": 3000
+						}
+					],
+					"spareParts": [
+						{
+							"price": 30,
+							"amount": 3,
+							"description": "lamper",
+							"productNumber": 1221
+						}
+					],
+					"workHours": 12
+				}
+			]
+		}
+	}
+]
