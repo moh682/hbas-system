@@ -7,7 +7,6 @@ const colors = require('colors');
 
 /* Models */
 const Car = require(__dirname + '/../db/models/Car.js');
-console.log(Car);
 const Invoice = require(__dirname + '/../db/models/Invoice');
 const User = require(__dirname + '/../db/models/User');
 
@@ -20,6 +19,12 @@ const addCar = async function(reg, brand, model, year) {
 		year: year
 	});
 	car.save();
+};
+
+const getAllCars = async function() {
+	return await Car.find({}, function(err, cars) {
+		return cars;
+	});
 };
 
 // var date = new Date();
@@ -62,5 +67,6 @@ const addCar = async function(reg, brand, model, year) {
 // }
 
 module.exports = {
-	addCar
+	addCar,
+	getAllCars
 };

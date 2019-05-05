@@ -2,12 +2,16 @@ const electron = require('electron');
 const path = require('path');
 const url = require('url');
 const { app, BrowserWindow, Menu, ipcMain } = electron;
+const { getAllCars } = require(__dirname + '/src/facade/dataFacade');
 
 require('electron-reload')(__dirname);
 
 // Connecting to the DB
 const { TEST_URI } = require(__dirname + '/settings.js');
-require(__dirname + '/Connector.js')(TEST_URI);
+console.log(TEST_URI);
+const { connect, mongoose } = require(__dirname + '/Connector.js');
+connect(TEST_URI);
+// connect.getConnection();
 
 var currentWindow;
 var winPopUp;
@@ -15,6 +19,18 @@ const template = [
 	{
 		label: 'hbas',
 		submenu: [
+			{
+				label: 'table',
+				click: () => {
+					currentWindow.loadURL(
+						url.format({
+							pathname: path.join(__dirname, 'src/home.html'),
+							protocol: 'file',
+							slashes: true
+						})
+					);
+				}
+			},
 			{
 				role: 'quit',
 				label: 'Luk'
@@ -48,27 +64,28 @@ const template = [
 			{
 				label: 'Tilføj',
 				click: () => {
-					console.log(typeof winPopUp);
-					if (typeof winPopUp === 'object') {
-						winPopUp.close();
-					}
+					currentWindow.loadURL(`file://${__dirname}/src/addCust.html`);
+					// console.log(typeof winPopUp);
+					// if (typeof winPopUp === 'object') {
+					// 	winPopUp.close();
+					// }
 
-					winPopUp = new BrowserWindow({
-						frame: false,
-						fullscreen: false,
-						webPreferences: {
-							nodeIntegration: true,
-							contextIsolation: false
-						}
-					});
+					// winPopUp = new BrowserWindow({
+					// 	frame: false,
+					// 	fullscreen: false,
+					// 	webPreferences: {
+					// 		nodeIntegration: true,
+					// 		contextIsolation: false
+					// 	}
+					// });
 
-					winPopUp.loadURL(
-						url.format({
-							pathname: path.join(__dirname, 'src/addCust.html'),
-							protocol: 'file',
-							slashes: true
-						})
-					);
+					// winPopUp.loadURL(
+					// 	url.format({
+					// 		pathname: path.join(__dirname, 'src/addCust.html'),
+					// 		protocol: 'file',
+					// 		slashes: true
+					// 	})
+					// );
 				}
 			},
 			{
@@ -85,7 +102,8 @@ const template = [
 
 app.on('ready', function() {
 	currentWindow = new BrowserWindow({
-		fullscreen: false,
+		fullscreen: true,
+		backgroundColor: '#9b9b9b',
 		webPreferences: {
 			contextIsolation: false,
 			nodeIntegration: true
@@ -109,6 +127,15 @@ app.on('ready', function() {
 /* ipcMain */
 ipcMain.on('btn-home', (event, arg) => {
 	console.log(event, arg);
+});
+
+ipcMain.on('getAllCars-call', async (event, arg) => {
+	var cars = await getAllCars();
+	event.reply('getAllCars-reply', cars);
+});
+
+ipcMain.on('addcarbtn-call', async (event, arg) => {
+	currentWindow.loadURL(`file://${__dirname}/src/addCust.html`);
 });
 
 // works -- Closes the popup

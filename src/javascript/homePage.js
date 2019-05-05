@@ -1,36 +1,48 @@
-const { getData } = require(__dirname + '/../facade/dataFacade');
+const { ipcRenderer } = require('electron');
 
 var table = document.getElementById('table-output');
 var loader = document.getElementById('loader');
-var btn = document.getElementById('reload-btn');
-btn.style.display = 'none';
+var reloadBtn = document.getElementById('reload-btn');
+var addCarBtn = document.getElementById('add-car');
 
-(() => {
-	setTimeout(async () => {
-		loader.style.display = 'none';
-		var data = await getData().then(data);
-		table.innerHTML = createTable(data);
-		btn.style.display = 'flex';
-	}, 1500);
-})();
+reloadBtn.addEventListener('click', () => start());
+addCarBtn.addEventListener('click', () => {
+	ipcRenderer.send('addcarbtn-call');
+});
+
+reloadBtn.style.display = 'none';
+addCarBtn.style.display = 'none';
+
+function start() {
+	loader;
+	ipcRenderer.send('getAllCars-call');
+}
+start();
+
+ipcRenderer.on('getAllCars-reply', function(event, arg) {
+	table.innerHTML = createTable(arg);
+	reloadBtn.style.display = 'flex';
+	addCarBtn.style.display = 'flex';
+	loader.style.display = 'none';
+});
 
 function createTable(data) {
-	// manipulate data
-	var dataArr = data.data;
-
 	// creates header
-	var theader = createTableHeader(data.headers);
-
+	var theader = createTableHeader([ 'reg', 'brand', 'model', 'year', 'users', 'invoices' ]);
 	// creates body
-	var tbody = dataArr.map((user, index) => {
-		return `<tr key=${index}><td>${index}</td><td>${user.bil}</td><td>${user.name}</td><td>${user.invoices}</td></tr>`;
+	var tbody = data.map((object, index) => {
+		let { reg, brand, model, year, users, invoices } = object._doc;
+		invoices = invoices.length === 0 ? 'Ingen Data' : invoices;
+		users = users.length === 0 ? 'Ingen Data' : users;
+
+		return `<tr key=${index}><th>${index}</th><td>${reg}</td><td>${brand}</td><td>${model}</td><td>${year}</td><td>${users}</td><td>${invoices}</td></tr>`;
 	});
 	tbody.unshift('<tbody>');
 	tbody.push('</tbody>');
 	tbody = tbody.join('');
 
 	// sets theader and tbody together
-	var res = `<table>${theader}${tbody}</table>`;
+	var res = `<table class="table">${theader}${tbody}</table>`;
 	return res;
 }
 
@@ -39,7 +51,7 @@ function createTableHeader(headers) {
 		return `<th> ${header} </th>`;
 	});
 	theader.join('');
-	theader.unshift('<thead><tr><th>#</th>');
+	theader.unshift('<thead class="thead-dark"><tr><th>#</th>');
 	theader.push('</tr></thead>');
 	theader = theader.join('');
 	return theader;

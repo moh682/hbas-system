@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Dist folder Remove when fully done
+/dist
+
 # Runtime data
 pids
 *.pid

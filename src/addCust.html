@@ -1,15 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./style/style.css">
   <title>Tilføj Kunde</title>
 </head>
-<body class="container">
-  <h1>Tilføj Kunde</h1>
-  <input type="text" placeholder="Bil Reg." class="input-field">
-  <input type="text" placeholder="Bil Reg." class="input-field">
-  <input type="text" placeholder="Bil Reg." class="input-field">
 
-  <button type="submit" class="btn">Tilføj</button>
+<body class="container-fluid">
+  <h1>Tilføj Kvittering</h1>
+
+  <div class="row">
+    <div class="col-3">
+      <div class="form-group">
+        <!-- Reg -->
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Reg nr.</div>
+          </div>
+        <input type="text" id="reg" required maxlength="7" class="form-control">
+        </div>
+        <!-- Mærke -->
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Mærke</div>
+          </div>
+        <input type="text" id="brand" class="form-control">
+        </div>
+        <!-- Model -->
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text inputGroup-sizing-lg">Model</div>
+          </div>
+        <input type="text" id="model" class="form-control">
+        </div>
+        <!-- Årgang -->
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Årgang</div>
+          </div>
+        <input type="Number" id="year" maxlength="4" class="form-control">
+        </div>
+        <!-- Arbejdstimer -->
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="width:40px">$</div>
+          </div>
+        <input type="Number" id="workHours" placeholder="pr. time" maxlength="4" class="form-control">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="width:55px"><img src="https://img.icons8.com/windows/32/000000/hourglass-sand-bottom.png"></div>
+          </div>
+        <input type="Number" id="workHours" placeholder="timer" maxlength="4" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-0">
+      
+    </div>
+    <div class="col">
+      <div class="row mt-4">
+        <div class="col-2">
+          <h3>Produkt nr.</h3>
+        </div>
+        <div class="col-7">
+          <h3>Beskrivelse</h3>
+        </div>
+        <div class="col-1">
+          <h3>Antal</h3>
+        </div>
+        <div class="col-1">
+          <h3>Pris</h3>
+        </div>
+      </div>
+      <div class="w-100"></div>
+      <div id="spare-parts-form">
+        <div class="row mt-3">
+          <div class="col-2">
+            <input type="text" placeholder="reservedel nr." name="productNumber" id="productNumber" class="form-control form-control-lg">
+          </div>
+          <div class="col-7">
+            <input type="text" placeholder="beskrivelse" name="description" id="description" class="form-control form-control-lg">
+          </div>
+          <div class="col-1">
+            <input type="number" onkeyup="if(this.value > 9999){this.value=9999}if(this.value < 0){this.value = 0}" max="99999" min="0" placeholder="antal" name="amount" id="amount" class="input-amount form-control form-control-lg">
+          </div>
+          <div class="col-1">
+            <input type="number" onkeyup="if(this.value > 99999){this.value=99999}if(this.value < 0){this.value = 0}" max="99999" min="0" name="price" id="price" placeholder="pris" class="input-amount form-control form-control-lg">
+          </div>
+          <button type="submit" id="remove" hidden class="btn btn-danger remove">X</button>
+          <div class="col-1">
+          </div>
+        </div>
+      </div>
+      
+      <!-- ** extra spare parts output ** -->
+      <div id="spare-parts-output"></div>    
+      <!-- ** extra spare parts output end ** -->   
+      <div class="w-100"></div>
+      <button type="submit" class="btn btn-primary mt-4" id="add-spare-parts-form">Tilføj dele</button>
+    </div>
+    <div class="w-100"></div>
+    <div class="div-btns">
+  <button type="submit" id="submit-invoice-btn" class="btn btn-primary">Tilføj Kvittering</button>
+  <button type="submit" id="go-back-btn" class="btn btn-danger"> Tilbage</button>
+    </div>
+  </div>
 </body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+<script>
+require(__dirname + '/../src/javascript/addCust.js')
+</script>
 </html>
